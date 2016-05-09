@@ -1,0 +1,9 @@
+Options -Indexes
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /infinity/
+	RewriteCond %{REQUEST_URI} !(\/(public|asset)\/)
+	RewriteRule ^(.*)$ index.php [L]
+</IfModule>
