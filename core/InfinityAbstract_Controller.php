@@ -1,12 +1,12 @@
 <?php
 
 abstract class InfinityAbstract_Controller {
-    private $channel;
+    private $channel_name;
     private $data;
     private $data_buffer = array();
     
-    protected function init( $channel ) {
-        $this->channel = $channel;
+    protected function init( $channel_name ) {
+        $this->channel_name = $channel_name;
         $this->data = array();
     }
     
@@ -48,16 +48,16 @@ abstract class InfinityAbstract_Controller {
     
     // controller functions
     protected function loadView( $view ) {
-        if( isset( $view ) && !empty( $view ) && file_exists( './channel/' . $this->channel . '/view/' . $view ) ) {
-            include( './channel/' . $this->channel . '/view/' . $view );
+        if( isset( $view ) && !empty( $view ) && file_exists( './channel/' . $this->channel_name . '/view/' . $view ) ) {
+            include( './channel/' . $this->channel_name . '/view/' . $view );
         }
     }
     
     protected function getResourceContent( $resource ) {
-        if( isset( $resource ) && !empty( $resource ) && file_exists( './channel/' . $this->channel . '/resource/' . $resource ) ) {
+        if( isset( $resource ) && !empty( $resource ) && file_exists( './channel/' . $this->channel_name . '/resource/' . $resource ) ) {
             InfinityModule_OutputBuffer::save();
             InfinityModule_OutputBuffer::clear();
-            include_once( './channel/' . $this->channel . '/resource/' . $resource );
+            include_once( './channel/' . $this->channel_name . '/resource/' . $resource );
             $resource_content = InfinityModule_OutputBuffer::get();
             InfinityModule_OutputBuffer::restore();
             return $resource_content;
@@ -109,19 +109,19 @@ class InfinityController {
 	protected $channel;
     protected $data;
     
-    public function __construct( $channel ) {
-        $this->channel = $channel;
+    public function __construct( $channel_name ) {
+        $this->channel_name = $channel;
     }
 	
 	protected function loadView( $view, $data = [] ) {
-        if( isset( $view ) && !empty( $view ) && file_exists( './channel/' . $this->channel . '/view/' . $view ) ) {
-            require( './channel/' . $this->channel . '/view/' . $view );
+        if( isset( $view ) && !empty( $view ) && file_exists( './channel/' . $this->channel_name . '/view/' . $view ) ) {
+            require( './channel/' . $this->channel_name . '/view/' . $view );
         }
 	}
     
 	protected function getModel( $model ) {
-        if( isset( $model ) && !empty( $model ) && file_exists( './channel/' . $this->channel . '/model/' . $model . '.php' ) ) {
-            require_once( './channel/' . $this->channel . '/model/' . $model . '.php' );
+        if( isset( $model ) && !empty( $model ) && file_exists( './channel/' . $this->channel_name . '/model/' . $model . '.php' ) ) {
+            require_once( './channel/' . $this->channel_name . '/model/' . $model . '.php' );
             $model = 'Model_' . ucfirst( $model );
             $model = new $model;
             return $model;
@@ -139,9 +139,9 @@ class InfinityController {
 	}
 	
 	protected function getResourceContent( $resource ) {
-        if( isset( $resource ) && !empty( $resource ) && file_exists( './channel/' . $this->channel . '/resource/' . $resource ) ) {
+        if( isset( $resource ) && !empty( $resource ) && file_exists( './channel/' . $this->channel_name . '/resource/' . $resource ) ) {
             ob_start();
-            include_once( './channel/' . $this->channel . '/resource/' . $resource );
+            include_once( './channel/' . $this->channel_name . '/resource/' . $resource );
             return ob_get_clean();
         } else {
             return '';
@@ -149,9 +149,9 @@ class InfinityController {
 	}
 	
 	protected function getResourceBase64( $resource ) {
-        if( isset( $resource ) && !empty( $resource ) && file_exists( './channel/' . $this->channel . '/resource/' . $resource ) ) {
+        if( isset( $resource ) && !empty( $resource ) && file_exists( './channel/' . $this->channel_name . '/resource/' . $resource ) ) {
             $finfo = finfo_open( FILEINFO_MIME );
-            $mime = finfo_file( $finfo, './channel/' . $this->channel . '/resource/' . $resource );
+            $mime = finfo_file( $finfo, './channel/' . $this->channel_name . '/resource/' . $resource );
             finfo_close( $finfo );
             $mime = substr( $mime, 0, strpos( $mime, ';' ) );
             return 'data:' . $mime . ';base64,' . base64_encode( $this->getResourceContent( $resource ) );

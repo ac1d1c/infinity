@@ -4,6 +4,7 @@ $_CONFIG = [];
 
 // engine
 $_CONFIG['engine_root_dir'] = '/infinity/';
+$_CONFIG['engine_default_channel'] = 'web';
 
 // mysql
 $_CONFIG['mysql_host'] = 'localhost';
