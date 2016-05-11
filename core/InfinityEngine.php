@@ -19,7 +19,7 @@ class InfinityEngine extends InfinityAbstract_Engine {
         // select channel
         $channel = null;
         if( $this->channelExists( $request_route[0] ) ) {
-            $channel = $this->getChannel( array_shift( $request_route[0] ) );
+            $channel = $this->getChannel( array_shift( $request_route ) );
         } else {
             $channel = $this->getChannel( $_CONFIG['engine_default_channel'] );
         }

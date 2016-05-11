@@ -2,6 +2,8 @@
 
 class InfinityController_Home extends InfinityAbstract_Controller implements InfinityInterface_Controller {
     public function index( $args = array() ) {
+		global $_CONFIG;
+        
         // set data
         $this->setData( 'title', 'Infinity' );
         $this->setData( 'layout', 'layout/page-full.php' );
