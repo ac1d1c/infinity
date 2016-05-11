@@ -12,7 +12,7 @@ class InfinityChannel_Web extends InfinityAbstract_Channel implements InfinityIn
         // select controller
         $controller = null;
         if( !empty( $request_route[0] ) && strtolower( $request_route[0] ) != $this->default_controller && $this->controllerExists( $request_route[0] ) ) {
-            $controller = $this->getController( array_shift( $request_route[0] ) );
+            $controller = $this->getController( array_shift( $request_route ) );
         } else {
             $controller = $this->getController( $this->default_controller );
         }
