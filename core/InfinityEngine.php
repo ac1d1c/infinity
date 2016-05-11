@@ -24,7 +24,7 @@ class InfinityEngine extends InfinityAbstract_Engine {
             $channel = $this->getChannel( $_CONFIG['engine_default_channel'] );
         }
         
-        $channel->request( $request_route[0] );
+        $channel->request( $request_route );
 	}
 }
 
